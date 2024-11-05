@@ -1,0 +1,27 @@
+{
+  "name": "sistemadistribuido",
+  "version": "1.0.0",
+  "main": "authService.js",
+  "scripts": {
+    "start:auth": "node authService.js",
+    "start:transaction": "node transactionService.js",
+    "start:rabbitmq": "node rabbitMQService.js",
+    "start:monitoring": "node monitoringService.js",
+    "start:all": "concurrently \"npm run start:auth\" \"npm run start:transaction\" \"npm run start:rabbitmq\" \"npm run start:monitoring\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "concurrently": "^9.1.0",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.8.0",
+    "prom-client": "^15.1.3"
+  }
+}
