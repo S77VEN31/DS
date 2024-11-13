@@ -1,14 +1,14 @@
 # Documentación del Emulador de Sistema Distribuido
 
-Este documento describe la implementación de un emulador de sistema distribuido utilizando JavaScript puro. El emulador simula un entorno de sistema operativo distribuido con múltiples nodos, cada uno capaz de ejecutar procesos, sincronizar el acceso a recursos compartidos, manejar la comunicación entre nodos y redistribuir procesos en caso de fallos.
+Este documento describe la implementación de un emulador de sistema distribuido utilizando JavaScript. El emulador simula un entorno de sistema operativo distribuido con múltiples nodos, cada uno capaz de ejecutar procesos, sincronizar el acceso a recursos compartidos, manejar la comunicación entre nodos y redistribuir procesos en caso de fallos.
 
 ## Estructura del Proyecto
 
 El proyecto está dividido en varios archivos para modularizar la funcionalidad:
 
-- **Node.js**: Define la clase `Node`, que gestiona los procesos y el acceso a recursos compartidos.
+- **Node.js**: Define la clase `Node`, que gestiona los procesos y el acceso a recursos compartidos, y maneja la comunicación a través de WebSockets.
 - **Process.js**: Define la clase `Process`, que representa un proceso ejecutable por un nodo.
-- **DistributedSystem.js**: Gestiona los nodos y los procesos, manejando la asignación de procesos y la monitorización de nodos.
+- **DistributedSystem.js**: Gestiona los nodos y los procesos, manejando la asignación de procesos, la monitorización de nodos y la comunicación entre nodos.
 - **index.js**: Punto de entrada que inicializa el sistema, añade nodos, asigna procesos y simula fallos de nodos y acceso a recursos.
 
 ## Descripción de Clases y Métodos
@@ -16,7 +16,7 @@ El proyecto está dividido en varios archivos para modularizar la funcionalidad:
 ### Node.js
 
 - **Node**: Clase que representa un nodo en el sistema.
-  - `constructor(id)`: Inicializa un nodo con un identificador único.
+  - `constructor(id)`: Inicializa un nodo con un identificador único y establece una conexión WebSocket.
   - `executeProcess(process)`: Ejecuta un proceso y lo añade a la lista de procesos del nodo.
   - `accessResource(resourceId, callback)`: Sincroniza el acceso a un recurso compartido, asegurando acceso exclusivo.
   - `fail()`: Simula el fallo del nodo, marcándolo como inactivo.
@@ -31,7 +31,7 @@ El proyecto está dividido en varios archivos para modularizar la funcionalidad:
 ### DistributedSystem.js
 
 - **DistributedSystem**: Clase que gestiona el sistema distribuido.
-  - `constructor()`: Inicializa un sistema distribuido vacío.
+  - `constructor()`: Inicializa un sistema distribuido vacío y configura un servidor WebSocket.
   - `addNode(node)`: Añade un nodo al sistema.
   - `assignProcess(process)`: Asigna un proceso a un nodo activo basado en la carga.
   - `redistributeProcesses(failedNode)`: Redistribuye los procesos de un nodo fallido a nodos activos.
@@ -58,5 +58,6 @@ Para ejecutar el emulador:
 - **Gestión de Recursos Compartidos**: Sincronización del acceso a recursos compartidos para evitar condiciones de carrera.
 - **Tolerancia a Fallos**: Detección de nodos inactivos y redistribución de sus procesos.
 - **Escalabilidad**: Permite la adición dinámica de nuevos nodos al sistema.
+- **Comunicación entre Nodos**: Uso de WebSockets para la comunicación entre nodos y el servidor central.
 
 Este emulador proporciona una base para simular y probar conceptos de sistemas distribuidos, y puede expandirse con características adicionales según sea necesario.

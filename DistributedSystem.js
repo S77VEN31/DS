@@ -1,8 +1,16 @@
-const Node = require('./Node');
+const WebSocket = require('ws');
 
 class DistributedSystem {
     constructor() {
         this.nodes = [];
+        this.wss = new WebSocket.Server({ port: 3000 });
+
+        this.wss.on('connection', (ws) => {
+            ws.on('message', (message) => {
+                console.log(`Received message: ${message}`);
+                // Handle incoming messages and distribute tasks
+            });
+        });
     }
 
     addNode(node) {
